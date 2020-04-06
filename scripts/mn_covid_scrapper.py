@@ -860,7 +860,7 @@ for item in soup.select('li'):
 
 curr_date = (str(datetime.today())[0:10])
 web_data_date = datetime.strptime(web_timestamp, '%d-%b-%Y').strftime('%Y-%m-%d')
-print(web_data_date)
+#print(web_data_date)
 #need logic gate to check date before running program
 
 #collect last recorded timepoint
@@ -874,14 +874,14 @@ with open('mn_covid_19.txt', 'r') as csv_file:
 #logic for data collection and user msgs
 if curr_date == web_data_date and curr_date != last_rec_data and web_data_date != last_rec_data:
 	with open('mn_covid_19.txt', 'a') as csv_file:
-		csv_file.write('\n')
+		#csv_file.write('\n')
 		csv_writer = writer(csv_file, delimiter='\t')
 		csv_writer.writerow([curr_date, tot_tested, tot_pos, deaths, tot_hosp, curr_hosp, recovered, ICU])
-	print("Data has been collected and appended to mn_covid_19.txt")
+	print("Data collected on " + web_data_date +" has been appended to mn_covid_19.txt")
 elif curr_date != web_data_date and last_rec_data == web_data_date:
 	print("MNDPH has not updated their data or an error has occurred.  Check website to ensure this is not due to html formatting changes.")
 elif curr_date == web_data_date and last_rec_data == web_data_date:
-	print("Minesota CoVID-19 data is up to date.")
+	print("Minnesota CoVID-19 data is up to date.")
 #print(curr_date, web_data_date, last_rec_data)
 
 

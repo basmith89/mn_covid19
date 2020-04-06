@@ -3,8 +3,14 @@
 library(ggplot2)
 library(reshape2)
 library(hrbrthemes)
+#library(ggthemr)
+library(Hmisc)
 
-setwd("D:/Brian/CoVID-19/")
+#if using ggthemr use this and remove all 'theme_ft_rc()' code
+#I found this necessary on some OSs as hrbrthemes has font and plotting issues
+# ggthemr('flat dark', type = 'outer')
+
+#setwd("")
 
 #####################
 ####Data Wrangling###
@@ -16,10 +22,10 @@ co19_df <- read.csv("mn_covid_19.txt", sep ="\t")
 co19_df$Curr_Infected <- (co19_df$T.Pos - co19_df$Recovered_Cases)
 
 #Add new cases column
-co19_df$New_Cases <- (co19_df$T.Pos - lag(co19_df$T.Pos, 1))
+co19_df$New_Cases <- (co19_df$T.Pos - Lag(co19_df$T.Pos, 1))
 
 #Add Growth Factor column
-co19_df$Growth_Factor <- round(co19_df$New_Cases / lag(co19_df$New_Cases, 1), digits = 3)
+co19_df$Growth_Factor <- round(co19_df$New_Cases / Lag(co19_df$New_Cases, 1), digits = 3)
 
 #Testing Rate
 #co19_df$New_Tests <- co19_df$Tested - lag(co19_df$Tested, 1)
